@@ -1,5 +1,6 @@
 package com.globallogic.training.hradcicva;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,40 +21,52 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements MainButtonsFragment.OnMainButtonClickListener {
+public class MainActivity extends AppCompatActivity implements MainButtonsFragment.MainButtonsFragmentClickListener {
+
+    public static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, " onCreate " + this);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Hrad cicva");
         setSupportActionBar(toolbar);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, " onDestroy " + this);
+    }
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.content_frame, MainButtonsFragment.newInstance(), MainButtonsFragment.TAG)
-                .commit();
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, " onStart " + this);
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d(TAG, " onStop " + this);
+    }
 
-//        Display display = getWindowManager().getDefaultDisplay();
-//        Point size = new Point();
-//        display.getSize(size);
-//        int screenWidth = size.x;
-//        int screenHeight = size.y;
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inJustDecodeBounds = true;
-//        BitmapFactory.decodeResource(getResources(), R.drawable.cicvazapadna, options);
-//        int imageHeight = options.outHeight;
-//        int imageWidth = options.outWidth;
-//        String imageType = options.outMimeType;
-//        Log.d(MainActivity.class.getSimpleName(), "imageHeight: " + imageHeight + " imageWidth: " + imageWidth + " imageType: " + imageType + " screenWidth: " + screenWidth + " screenHeight: " + screenHeight);
-//        imageView = (ImageView) findViewById(R.id.headerImageView);
-//        imageView.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.cicvazapadna, screenWidth, screenWidth*(imageHeight/imageWidth)));
-//
-//        listView = (ListView) findViewById(R.id.list_view);
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, values);
-//        listView.setAdapter(adapter);
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, " onResume " + this);
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .add(R.id.content_frame, MainButtonsFragment.newInstance(), MainButtonsFragment.TAG)
+//                .commit();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, " onPause " + this);
     }
 
     @Override
@@ -83,48 +96,24 @@ public class MainActivity extends AppCompatActivity implements MainButtonsFragme
         return super.onOptionsItemSelected(item);
     }
 
-    private int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) >= reqHeight
-                    && (halfWidth / inSampleSize) >= reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
-    }
-
-    private Bitmap decodeSampledBitmapFromResource(Resources res, int resId, int reqWidth, int reqHeight) {
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(res, resId, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeResource(res, resId, options);
-    }
-
     @Override
-    public void OnMainButtonClick(int id) {
+    public void OnButtonClick(int id) {
         Toast.makeText(
                 this,
                 "clicked button id: " + id, Toast.LENGTH_SHORT)
                 .show();
+        if (id == 0) {
+//            getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .add(R.id.content_frame, new PagerFragment(), PagerFragment.TAG)
+//                    .addToBackStack(PagerFragment.TAG)
+//                    .commit();
+            Log.d(TAG, "onButtonClick id: " + id);
+            Intent detailActivity = new Intent(this, PagerActivity.class);
+            Bundle extras = new Bundle();
+            extras.putInt(PagerActivity.MENU_ID, id);
+            detailActivity.putExtras(extras);
+            startActivity(detailActivity);
+        }
     }
 }

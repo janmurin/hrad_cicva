@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
@@ -12,6 +11,9 @@
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <fragment class="com.globallogic.training.hradcicva.MainButtonsFragment"
+            android:id="@+id/MainButtonsFragmentID"
+            android:layout_width="match_parent" android:layout_height="match_parent" />
     </FrameLayout>
 </RelativeLayout>
 
