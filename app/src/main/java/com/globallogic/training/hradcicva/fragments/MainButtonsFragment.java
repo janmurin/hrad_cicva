@@ -1,10 +1,11 @@
-package com.globallogic.training.hradcicva;
+package com.globallogic.training.hradcicva.fragments;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.Display;
@@ -18,15 +19,19 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import static com.globallogic.training.hradcicva.Shared.headerPortraitBitmap;
-import static com.globallogic.training.hradcicva.Shared.headerLandBitmap;
+import com.globallogic.training.hradcicva.gui.CustomListViewAdapter;
+import com.globallogic.training.hradcicva.data.Database;
+import com.globallogic.training.hradcicva.deprecated.ImageUtils;
+import com.globallogic.training.hradcicva.R;
+
+import static com.globallogic.training.hradcicva.data.Shared.headerPortraitBitmap;
+import static com.globallogic.training.hradcicva.data.Shared.headerLandBitmap;
 
 public class MainButtonsFragment extends Fragment {
 
     public static final String TAG = MainButtonsFragment.class.getSimpleName();
     private MainButtonsFragmentClickListener mListener;
     // private RecyclerView recyclerView;
-    private String[] buttonNames = {"O hrade", "Prehliadka hradu", "Podujatia", "PFHC o.z."};
     private ImageView headerImageView;
     private ListView buttonsListView;
 
@@ -86,28 +91,16 @@ public class MainButtonsFragment extends Fragment {
         Log.d(TAG, " onCreateView " + this);
 
         headerImageView = (ImageView) view.findViewById(R.id.headerImageView);
-        setImageHeader();
-
-//        // Set the adapter
-//        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-//        // use this setting to improve performance if you know that changes
-//        // in content do not change the layout size of the RecyclerView
-//        recyclerView.setHasFixedSize(true);
-//
-//        // use a linear layout manager
-//        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-//        recyclerView.setLayoutManager(mLayoutManager);
-//
-//        // specify an adapter (see also next example)
-//        recyclerView.setAdapter(new MainButtonsRecyclerViewAdapter(buttonNames, new MainButtonsRecyclerViewAdapter.OnMainButtonClickListener() {
-//            @Override
-//            public void OnMainButtonClick(int id) {
-//                mListener.OnButtonClick(id);
-//            }
-//        }));
-
         buttonsListView = (ListView) view.findViewById(R.id.buttons_listView);
-        buttonsListView.setAdapter(new CustomListViewAdapter(getActivity().getApplicationContext(), buttonNames));
+
+        return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setImageHeader();
+        buttonsListView.setAdapter(new CustomListViewAdapter(getActivity().getApplicationContext(), Database.getButtonNames()));
         buttonsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -116,7 +109,12 @@ public class MainButtonsFragment extends Fragment {
         });
         setListViewHeightBasedOnChildren(buttonsListView);
 
-        return view;
+        headerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.OnHeaderClick();
+            }
+        });
     }
 
     /**** Method for Setting the Height of the ListView dynamically.
@@ -184,7 +182,7 @@ public class MainButtonsFragment extends Fragment {
         int screenHeight = size.y;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.cicvazapadna, options);
+        BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.header_1, options);
         int realImageHeight = options.outHeight;
         int realImageWidth = options.outWidth;
         String imageType = options.outMimeType;
@@ -197,7 +195,7 @@ public class MainButtonsFragment extends Fragment {
                 "screenHeight: " + screenHeight + " " +
                 "imgWidth: " + imgWidth + " " +
                 "imgHeight: " + imgHeight + " ");
-        return ImageUtils.decodeSampledBitmapFromResource(getActivity().getResources(), R.drawable.cicvazapadna, imgWidth, imgHeight);
+        return ImageUtils.decodeSampledBitmapFromResource(getActivity().getResources(), R.drawable.header_1, imgWidth, imgHeight);
     }
 
 
@@ -213,6 +211,8 @@ public class MainButtonsFragment extends Fragment {
 
     public interface MainButtonsFragmentClickListener {
         void OnButtonClick(int id);
+
+        void OnHeaderClick();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.globallogic.training.hradcicva;
+package com.globallogic.training.hradcicva.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,21 +11,36 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.globallogic.training.hradcicva.data.Database;
+import com.globallogic.training.hradcicva.R;
+
 /**
  * Created by zavadpe on 7/25/16.
  */
 public class PagerFragment extends Fragment {
 
     public static final String TAG = "PagerFragment";
+    public static final String BUTTON_ID = "button_id";
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private int buttonID;
 
-    String[] tabs = new String[] { "First",
-            "Second",
-            "Third",
-            "Fourth"
-    };
+
+    public static PagerFragment newInstance(int buttonId) {
+        PagerFragment fragment = new PagerFragment();
+        Bundle arg = new Bundle();
+        arg.putInt(BUTTON_ID, buttonId);
+        fragment.setArguments(arg);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        buttonID = getArguments().getInt(BUTTON_ID);
+
+    }
 
     @Nullable
     @Override
@@ -38,32 +53,32 @@ public class PagerFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         viewPager = (ViewPager) view.findViewById(R.id.view_pager);
-        viewPager.setAdapter(new PagerAdapter(getChildFragmentManager(), tabs));
+        viewPager.setAdapter(new PagerAdapter(getChildFragmentManager(), Database.getTabs(buttonID)));
         tabLayout.setupWithViewPager(viewPager);
     }
 
     public final class PagerAdapter extends FragmentPagerAdapter {
 
-        private String[] titles;
+        private String[] tabnames;
 
         public PagerAdapter(FragmentManager fm, String[] titles) {
             super(fm);
-            this.titles = titles;
+            this.tabnames = titles;
         }
 
         @Override
         public Fragment getItem(int position) {
-            return PagerItemFragment.getInstance(titles[position]);
+            return PagerItemFragment.getInstance(buttonID,position);
         }
 
         @Override
         public int getCount() {
-            return titles.length;
+            return tabnames.length;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return titles[position];
+            return tabnames[position];
         }
     }
 }

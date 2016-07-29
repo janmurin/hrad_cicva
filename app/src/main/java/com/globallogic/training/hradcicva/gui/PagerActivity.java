@@ -1,12 +1,15 @@
-package com.globallogic.training.hradcicva;
+package com.globallogic.training.hradcicva.gui;
 
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.globallogic.training.hradcicva.data.Database;
+import com.globallogic.training.hradcicva.fragments.PagerFragment;
+import com.globallogic.training.hradcicva.R;
 
 public class PagerActivity extends AppCompatActivity {
 
@@ -19,24 +22,25 @@ public class PagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pager);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarPager);
-        toolbar.setTitle("O hrade");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             menuID = extras.getInt(MENU_ID);
+            Log.d(TAG, " onCreate with MENU_ID: " + menuID);
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.pager_activity_content_frame, PagerFragment.newInstance(menuID), PagerFragment.TAG)
+                    .commit();
         } else {
             throw new RuntimeException("instantiated fragment without arguments.");
         }
-        Log.d(TAG, " onCreate with MENU_ID: " + menuID);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.content_frame_pager, new PagerFragment(), PagerFragment.TAG)
-                .commit();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarPager);
+        toolbar.setTitle(Database.getTopicName(menuID));
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().hide();
     }
 
     @Override
@@ -68,6 +72,6 @@ public class PagerActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Log.d(TAG,"onBackPressed");
+        Log.d(TAG, "onBackPressed");
     }
 }

@@ -1,4 +1,4 @@
-package com.globallogic.training.hradcicva;
+package com.globallogic.training.hradcicva.deprecated;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;

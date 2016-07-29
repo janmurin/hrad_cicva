@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".gui.MainActivity"
     tools:showIn="@layout/activity_main">
 
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <fragment class="com.globallogic.training.hradcicva.MainButtonsFragment"
+        <fragment class="com.globallogic.training.hradcicva.fragments.MainButtonsFragment"
             android:id="@+id/MainButtonsFragmentID"
             android:layout_width="match_parent" android:layout_height="match_parent" />
     </FrameLayout>

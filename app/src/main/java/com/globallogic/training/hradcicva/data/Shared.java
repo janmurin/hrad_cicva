@@ -1,4 +1,4 @@
-package com.globallogic.training.hradcicva;
+package com.globallogic.training.hradcicva.data;
 
 import android.graphics.Bitmap;
 

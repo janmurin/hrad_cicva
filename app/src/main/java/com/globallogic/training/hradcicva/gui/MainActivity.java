@@ -1,29 +1,25 @@
-package com.globallogic.training.hradcicva;
+package com.globallogic.training.hradcicva.gui;
 
+import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Display;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
+
+import com.globallogic.training.hradcicva.data.Database;
+import com.globallogic.training.hradcicva.fragments.MainButtonsFragment;
+import com.globallogic.training.hradcicva.R;
+import com.globallogic.training.hradcicva.util.Utils;
 
 public class MainActivity extends AppCompatActivity implements MainButtonsFragment.MainButtonsFragmentClickListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    public static Context CONTEXT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements MainButtonsFragme
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Hrad cicva");
         setSupportActionBar(toolbar);
+        CONTEXT = this;
     }
 
     @Override
@@ -98,22 +95,35 @@ public class MainActivity extends AppCompatActivity implements MainButtonsFragme
 
     @Override
     public void OnButtonClick(int id) {
+//        Toast.makeText(
+//                this,
+//                "clicked button id: " + id, Toast.LENGTH_SHORT)
+//                .show();
+        Log.d(TAG, "onButtonClick id: " + id);
+        Intent detailActivity = new Intent(this, PagerActivity.class);
+        Bundle extras = new Bundle();
+        extras.putInt(PagerActivity.MENU_ID, id);
+        detailActivity.putExtras(extras);
+        startActivity(detailActivity);
+    }
+
+    @Override
+    public void OnHeaderClick() {
         Toast.makeText(
                 this,
-                "clicked button id: " + id, Toast.LENGTH_SHORT)
+                "header image clicked", Toast.LENGTH_SHORT)
                 .show();
-        if (id == 0) {
-//            getSupportFragmentManager()
-//                    .beginTransaction()
-//                    .add(R.id.content_frame, new PagerFragment(), PagerFragment.TAG)
-//                    .addToBackStack(PagerFragment.TAG)
-//                    .commit();
-            Log.d(TAG, "onButtonClick id: " + id);
-            Intent detailActivity = new Intent(this, PagerActivity.class);
-            Bundle extras = new Bundle();
-            extras.putInt(PagerActivity.MENU_ID, id);
-            detailActivity.putExtras(extras);
-            startActivity(detailActivity);
-        }
+        final Intent i = new Intent(this, ImageDetailActivity2.class);
+        i.putExtra(ImageDetailActivity2.IMAGE_GROUP_ID, Database.HEADER_GROUP_ID);
+//        if (Utils.hasJellyBean()) {
+//            // makeThumbnailScaleUpAnimation() looks kind of ugly here as the loading spinner may
+//            // show plus the thumbnail image in GridView is cropped. so using
+//            // makeScaleUpAnimation() instead.
+//            ActivityOptions options = ActivityOptions.makeScaleUpAnimation(getCurrentFocus(), 0, 0, getCurrentFocus().getWidth(), getCurrentFocus().getHeight());
+//            startActivity(i, options.toBundle());
+//        } else {
+        startActivity(i);
+//        }
     }
+
 }

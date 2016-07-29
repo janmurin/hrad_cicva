@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PagerActivity"
+    tools:context=".gui.PagerActivity"
     tools:showIn="@layout/activity_pager">
 
     <FrameLayout
-        android:id="@+id/content_frame_pager"
+        android:id="@+id/pager_activity_content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbarPager">

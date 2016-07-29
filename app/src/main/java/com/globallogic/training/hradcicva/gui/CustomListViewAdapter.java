@@ -1,4 +1,4 @@
-package com.globallogic.training.hradcicva;
+package com.globallogic.training.hradcicva.gui;
 
 import android.content.Context;
 import android.database.DataSetObserver;
@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import com.globallogic.training.hradcicva.R;
 
 /**
  * Created by jan.murin on 28-Jul-16.

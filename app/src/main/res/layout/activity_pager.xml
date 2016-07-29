@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.globallogic.training.hradcicva.PagerActivity">
+    tools:context=".gui.PagerActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <include
-        layout="@layout/content_pager"
+        layout="@layout/activity_pager_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
