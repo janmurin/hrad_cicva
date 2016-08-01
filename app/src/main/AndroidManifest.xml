@@ -27,7 +27,7 @@
             android:label="Pager Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".gui.ImageDetailActivity2"></activity>
-        <activity android:name=".gui.ImageDetailActivity"></activity>
+        <activity android:name=".deprecated.ImageDetailActivity"></activity>
     </application>
 
 </manifest>

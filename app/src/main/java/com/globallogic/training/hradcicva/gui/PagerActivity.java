@@ -11,6 +11,9 @@ import com.globallogic.training.hradcicva.data.Database;
 import com.globallogic.training.hradcicva.fragments.PagerFragment;
 import com.globallogic.training.hradcicva.R;
 
+import java.io.IOException;
+import java.util.Arrays;
+
 public class PagerActivity extends AppCompatActivity {
 
     public static final String MENU_ID = "menu_id";

@@ -1,6 +1,5 @@
 package com.globallogic.training.hradcicva.gui;
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,12 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.globallogic.training.hradcicva.data.Database;
 import com.globallogic.training.hradcicva.fragments.MainButtonsFragment;
 import com.globallogic.training.hradcicva.R;
-import com.globallogic.training.hradcicva.util.Utils;
+
+import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity implements MainButtonsFragment.MainButtonsFragmentClickListener {
 
@@ -95,10 +94,6 @@ public class MainActivity extends AppCompatActivity implements MainButtonsFragme
 
     @Override
     public void OnButtonClick(int id) {
-//        Toast.makeText(
-//                this,
-//                "clicked button id: " + id, Toast.LENGTH_SHORT)
-//                .show();
         Log.d(TAG, "onButtonClick id: " + id);
         Intent detailActivity = new Intent(this, PagerActivity.class);
         Bundle extras = new Bundle();
@@ -109,21 +104,13 @@ public class MainActivity extends AppCompatActivity implements MainButtonsFragme
 
     @Override
     public void OnHeaderClick() {
-        Toast.makeText(
-                this,
-                "header image clicked", Toast.LENGTH_SHORT)
-                .show();
+//        Toast.makeText(
+//                this,
+//                "header image clicked", Toast.LENGTH_SHORT)
+//                .show();
         final Intent i = new Intent(this, ImageDetailActivity2.class);
-        i.putExtra(ImageDetailActivity2.IMAGE_GROUP_ID, Database.HEADER_GROUP_ID);
-//        if (Utils.hasJellyBean()) {
-//            // makeThumbnailScaleUpAnimation() looks kind of ugly here as the loading spinner may
-//            // show plus the thumbnail image in GridView is cropped. so using
-//            // makeScaleUpAnimation() instead.
-//            ActivityOptions options = ActivityOptions.makeScaleUpAnimation(getCurrentFocus(), 0, 0, getCurrentFocus().getWidth(), getCurrentFocus().getHeight());
-//            startActivity(i, options.toBundle());
-//        } else {
+        i.putExtra(ImageDetailActivity2.IMAGE_RES_IDS,  Database.getHeaderImageResIDs());
         startActivity(i);
-//        }
     }
 
 }

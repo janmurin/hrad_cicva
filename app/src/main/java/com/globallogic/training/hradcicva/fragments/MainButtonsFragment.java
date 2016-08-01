@@ -19,10 +19,11 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.globallogic.training.hradcicva.gui.BitmapTransform;
 import com.globallogic.training.hradcicva.gui.CustomListViewAdapter;
 import com.globallogic.training.hradcicva.data.Database;
-import com.globallogic.training.hradcicva.deprecated.ImageUtils;
 import com.globallogic.training.hradcicva.R;
+import com.squareup.picasso.Picasso;
 
 import static com.globallogic.training.hradcicva.data.Shared.headerPortraitBitmap;
 import static com.globallogic.training.hradcicva.data.Shared.headerLandBitmap;
@@ -149,54 +150,68 @@ public class MainButtonsFragment extends Fragment {
         Display display = getActivity().getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        int rotation = display.getRotation();
-        if (rotation == Surface.ROTATION_90 || rotation == Surface.ROTATION_270) {
-            // land mode
-            if (headerLandBitmap != null) {
-                headerImageView.setImageBitmap(headerLandBitmap);
-            } else {
-                headerLandBitmap = getHeaderBitmap(size);
-                Log.d(TAG, "headerLandBitmap size: " + headerLandBitmap.getByteCount());
-                headerImageView.setImageBitmap(headerLandBitmap);
-            }
-        } else {
-            // portrait mode
-            if (headerPortraitBitmap != null) {
-                headerImageView.setImageBitmap(headerPortraitBitmap);
-            } else {
-                headerPortraitBitmap = getHeaderBitmap(size);
-                Log.d(TAG, "headerPortraitBitmap size: " + headerPortraitBitmap.getByteCount());
-                headerImageView.setImageBitmap(headerPortraitBitmap);
-            }
-        }
+
+        int resizeSize = (int) Math.sqrt(size.x * size.y);
+        Picasso.with(getContext())
+                .load(R.drawable.header_1)
+                .transform(new BitmapTransform(size.x, size.y))
+                .skipMemoryCache()
+                .resize(resizeSize, resizeSize)
+                .centerInside()
+                .into(headerImageView);
+
+
+//        Display display = getActivity().getWindowManager().getDefaultDisplay();
+//        Point size = new Point();
+//        display.getSize(size);
+//        int rotation = display.getRotation();
+//        if (rotation == Surface.ROTATION_90 || rotation == Surface.ROTATION_270) {
+//            // land mode
+//            if (headerLandBitmap != null) {
+//                headerImageView.setImageBitmap(headerLandBitmap);
+//            } else {
+//                headerLandBitmap = getHeaderBitmap(size);
+//                Log.d(TAG, "headerLandBitmap size: " + headerLandBitmap.getByteCount());
+//                headerImageView.setImageBitmap(headerLandBitmap);
+//            }
+//        } else {
+//            // portrait mode
+//            if (headerPortraitBitmap != null) {
+//                headerImageView.setImageBitmap(headerPortraitBitmap);
+//            } else {
+//                headerPortraitBitmap = getHeaderBitmap(size);
+//                Log.d(TAG, "headerPortraitBitmap size: " + headerPortraitBitmap.getByteCount());
+//                headerImageView.setImageBitmap(headerPortraitBitmap);
+//            }
+//        }
     }
 
-    /**
-     * loads header image from drawable into calculated dimensions
-     *
-     * @param size
-     * @return
-     */
-    private Bitmap getHeaderBitmap(Point size) {
-        int screenWidth = size.x;
-        int screenHeight = size.y;
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.header_1, options);
-        int realImageHeight = options.outHeight;
-        int realImageWidth = options.outWidth;
-        String imageType = options.outMimeType;
-        int imgWidth = screenWidth;
-        int imgHeight = (int) (screenWidth * ((double) realImageHeight / realImageWidth));
-        Log.d(TAG, "realImageHeight: " + realImageHeight + " " +
-                "realImageWidth: " + realImageWidth + " " +
-                "imageType: " + imageType + " " +
-                "screenWidth: " + screenWidth + " " +
-                "screenHeight: " + screenHeight + " " +
-                "imgWidth: " + imgWidth + " " +
-                "imgHeight: " + imgHeight + " ");
-        return ImageUtils.decodeSampledBitmapFromResource(getActivity().getResources(), R.drawable.header_1, imgWidth, imgHeight);
-    }
+//    /**
+//     * loads header image from drawable into calculated dimensions
+//     *
+//     * @param size
+//     * @return
+//     */
+//    private Bitmap getHeaderBitmap(Point size) {
+//        int screenWidth = size.x;
+//        int screenHeight = size.y;
+//        BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inJustDecodeBounds = true;
+//        BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.header_1, options);
+//        int realImageHeight = options.outHeight;
+//        int realImageWidth = options.outWidth;
+//        String imageType = options.outMimeType;
+//        int imgWidth = screenWidth;
+//        int imgHeight = (int) (screenWidth * ((double) realImageHeight / realImageWidth));
+//        Log.d(TAG, "realImageHeight: " + realImageHeight + " " +
+//                "realImageWidth: " + realImageWidth + " " +
+//                "imageType: " + imageType + " " +
+//                "screenWidth: " + screenWidth + " " +
+//                "screenHeight: " + screenHeight + " " +
+//                "imgWidth: " + imgWidth + " " +
+//                "imgHeight: " + imgHeight + " ");
+//        return ImageUtils.decodeSampledBitmapFromResource(getActivity().getResources(), R.drawable.header_1, imgWidth, imgHeight);
+//    }
 
 
     @Override

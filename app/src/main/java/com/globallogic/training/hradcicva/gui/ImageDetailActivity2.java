@@ -5,57 +5,57 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.globallogic.training.hradcicva.R;
 import com.globallogic.training.hradcicva.data.Database;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ImageDetailActivity2 extends FragmentActivity {
 
-    public static final String IMAGE_GROUP_ID = "extra_image";
+    public static final String IMAGE_RES_IDS = "extra_image";
     private static final String TAG = ImageDetailActivity2.class.getSimpleName();
 
     private ImagePagerAdapter mAdapter;
     private ViewPager mPager;
-    private int imageGroupID;
+    private ArrayList<Integer> imageResIDs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_detail_pager2); // Contains just a ViewPager
 
-        imageGroupID = getIntent().getIntExtra(IMAGE_GROUP_ID, -1);
-        if (imageGroupID == -1) {
-            throw new RuntimeException(TAG + " started without image group id");
+        imageResIDs = getIntent().getIntegerArrayListExtra(IMAGE_RES_IDS);
+        if (imageResIDs == null) {
+            throw new RuntimeException(TAG + " started without image res ids");
         }
-        Log.d(TAG, "onCreate with groupid: " + imageGroupID);
+        Log.d(TAG, "onCreate with groupid: " + imageResIDs);
 
-        mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), Database.getImageIDsFromGroupID(imageGroupID).size(), imageGroupID);
+        mAdapter = new ImagePagerAdapter(getSupportFragmentManager(), imageResIDs);
         mPager = (ViewPager) findViewById(R.id.pager);
         mPager.setAdapter(mAdapter);
     }
 
     public static class ImagePagerAdapter extends FragmentStatePagerAdapter {
-        private final int mSize;
-        private final int group;
+        private final List<Integer> imageResIDs;
 
-        public ImagePagerAdapter(FragmentManager fm, int size, int groupID) {
+        public ImagePagerAdapter(FragmentManager fm, List<Integer> imageResIDs) {
             super(fm);
-            mSize = size;
-            this.group = groupID;
+            this.imageResIDs=imageResIDs;
         }
 
         @Override
         public int getCount() {
-            return mSize;
+            return imageResIDs.size();
         }
 
         @Override
         public Fragment getItem(int position) {
             Log.d("ImagePagerAdapter", "getItem " + position);
-            return ImageDetailFragment2.newInstance(group, position);
+            return ImageDetailFragment2.newInstance(imageResIDs.get(position));
         }
     }
 }

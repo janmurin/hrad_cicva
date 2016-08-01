@@ -9,8 +9,11 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
 
+import com.globallogic.training.hradcicva.data.Article;
 import com.globallogic.training.hradcicva.data.Database;
 import com.globallogic.training.hradcicva.R;
+
+import java.util.List;
 
 /**
  * Created by zavadpe on 7/25/16.
@@ -19,9 +22,11 @@ public class PagerItemFragment extends Fragment {
 
     public static final String BUTTON_ID = "buttonID";
     public static final String POSITION = "position";
+    public static final String TAG = PagerItemFragment.class.getSimpleName();
     private int buttonID;
     private int position;
     private ImageView articleImageView;
+    private Article article;
 
     public static PagerItemFragment getInstance(int buttonID, int position) {
         PagerItemFragment inst = new PagerItemFragment();
@@ -40,6 +45,7 @@ public class PagerItemFragment extends Fragment {
         if (args != null) {
             buttonID = args.getInt(BUTTON_ID);
             position = args.getInt(POSITION);
+            article = Database.getArticle(buttonID, position);
         } else {
             throw new RuntimeException("Pager item fragment without arguments!!!");
         }
@@ -57,7 +63,9 @@ public class PagerItemFragment extends Fragment {
         articleImageView = (ImageView) view.findViewById(R.id.articleImageView);
         WebView webview = (WebView) view.findViewById(R.id.contentWebView);
         webview.getSettings().setJavaScriptEnabled(true);
-        webview.loadDataWithBaseURL("", Database.getArticleContent(buttonID, position), "text/html", "UTF-8", "");
+        //webview.loadDataWithBaseURL("file:///android_asset/sponzori.html", "", "text/html", "utf-8", null);
+        webview.loadUrl("file:///android_asset/" + article.assetUrl);
+        System.out.println(TAG + " article ids: " + article.imageIDs);
     }
 
     @Override
