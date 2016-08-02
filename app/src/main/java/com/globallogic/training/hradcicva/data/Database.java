@@ -3,12 +3,11 @@ package com.globallogic.training.hradcicva.data;
 import android.content.res.Resources;
 
 import com.globallogic.training.hradcicva.R;
-import com.globallogic.training.hradcicva.gui.MainActivity;
+import com.globallogic.training.hradcicva.gui.hrad.Main2Activity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by jan.murin on 29-Jul-16.
@@ -164,7 +163,7 @@ public class Database {
 
         buttonNames = new String[topics.size()];
         tabNames = new ArrayList<>();
-        Resources resources = MainActivity.CONTEXT.getResources();
+        Resources resources = Main2Activity.CONTEXT.getResources();
         for (int i = 0; i < topics.size(); i++) {
             Topic topic = topics.get(i);
             buttonNames[i] = topic.name;
@@ -173,7 +172,7 @@ public class Database {
                 Article a = topic.articles.get(j);
                 tabs.add(a.tabName);
                 for (int k = 0; k < a.images.size(); k++) {
-                    a.imageIDs.add(resources.getIdentifier(a.images.get(k), "drawable", MainActivity.CONTEXT.getPackageName()));
+                    a.imageIDs.add(resources.getIdentifier(a.images.get(k), "drawable", Main2Activity.CONTEXT.getPackageName()));
                 }
             }
             tabNames.add(tabs);
@@ -186,8 +185,8 @@ public class Database {
     }
 
 
-    public static String[] getButtonNames() {
-        return buttonNames;
+    public static List<String> getButtonNames() {
+        return Arrays.asList(buttonNames);
     }
 
     public static String[] getTabs(int buttonID) {
@@ -203,7 +202,26 @@ public class Database {
     }
 
 
-    public static ArrayList<Integer> getHeaderImageResIDs() {
+    public static ArrayList<Integer> getHeaderImageResIDsList() {
         return (ArrayList<Integer>) headerImageResIDs;
+    }
+
+    public static int getButtonDrawable(int position) {
+        switch (position) {
+            case 0:
+                return R.drawable.historia_1;
+            case 1:
+                return R.drawable.bergfrit_1;
+            case 2:
+                return R.drawable.obnova_1;
+            case 3:
+                return R.drawable.pfhc;
+            default:
+                return R.drawable.architektura_1;
+        }
+    }
+
+    public static int getHeaderDrawable() {
+        return R.drawable.header_1;
     }
 }
