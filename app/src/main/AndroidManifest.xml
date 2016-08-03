@@ -12,28 +12,30 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--<activity-->
-            <!--android:name=".gui.deprecated.main.MainActivity"-->
-            <!--android:label="@string/app_name"-->
-            <!--android:theme="@style/AppTheme.NoActionBar">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
-        <!--<activity-->
-            <!--android:name=".gui.deprecated.pager.PagerActivity"-->
-            <!--android:label="Pager Activity"-->
-            <!--android:theme="@style/AppTheme.NoActionBar" />-->
-        <!--<activity android:name=".gui.deprecated.detail.ImageDetailActivity"></activity>-->
-        <!--<activity android:name=".deprecated.ImageDetailActivity"></activity>-->
+        <!-- <activity -->
+        <!-- android:name=".gui.deprecated.main.MainActivity" -->
+        <!-- android:label="@string/app_name" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <!-- <activity -->
+        <!-- android:name=".gui.deprecated.pager.PagerActivity" -->
+        <!-- android:label="Pager Activity" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
+        <!-- <activity android:name=".gui.deprecated.detail.ImageDetailActivity"></activity> -->
+        <!-- <activity android:name=".deprecated.ImageDetailActivity"></activity> -->
         <activity
-            android:name=".gui.hrad.ButtonDetailActivity"
+            android:name=".gui.deprecated.PagerActivity"
             android:label="title button detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".gui.hrad.Main2Activity"
+            android:name=".gui.MainActivity"
             android:label="Main2Activity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -42,6 +44,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".gui.PagerActivity2"
+            android:label="title button detail"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".gui.detail.ImageDetailActivity"
+            android:label="title button detail"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

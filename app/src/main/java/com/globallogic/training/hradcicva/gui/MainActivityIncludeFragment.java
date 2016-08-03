@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.globallogic.training.hradcicva.gui.hrad;
+package com.globallogic.training.hradcicva.gui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -34,21 +34,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.globallogic.training.hradcicva.R;
 import com.globallogic.training.hradcicva.data.Database;
+import com.globallogic.training.hradcicva.gui.detail.ImageDetailActivity;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
-import java.util.Random;
 
-public class ActivityMainButtonsFragment extends Fragment {
+public class MainActivityIncludeFragment extends Fragment {
 
-    public static final String NAME = "NAME";
-    private String detailName;
-
-    public static ActivityMainButtonsFragment getInstance(String name) {
-        ActivityMainButtonsFragment inst = new ActivityMainButtonsFragment();
-        Bundle args = new Bundle();
-        args.putString(NAME, name);
-        inst.setArguments(args);
+    public static MainActivityIncludeFragment getInstance(String name) {
+        MainActivityIncludeFragment inst = new MainActivityIncludeFragment();
         return inst;
     }
 
@@ -56,26 +50,16 @@ public class ActivityMainButtonsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle args = getArguments();
-        if (args != null) {
-            detailName = args.getString(NAME);
-        } else {
-            throw new RuntimeException("Pager item fragment without arguments!!!");
-        }
-
-
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_main_buttons_fragment, container, false);
-        //final Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        View view = inflater.inflate(R.layout.activity_main_include_fragment, container, false);
+
 
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle(detailName);
+        collapsingToolbar.setTitle("Hrad Čičva");
 
         final ImageView imageView = (ImageView) view.findViewById(R.id.backdrop);
         Glide.with(this)
@@ -104,17 +88,7 @@ public class ActivityMainButtonsFragment extends Fragment {
         recyclerView.setAdapter(new SimpleStringRecyclerViewAdapter(getActivity(), Database.getButtonNames()));
     }
 
-    private List<String> getRandomSublist(String[] array, int amount) {
-        ArrayList<String> list = new ArrayList<>(amount);
-        Random random = new Random();
-        while (list.size() < amount) {
-            list.add(array[random.nextInt(array.length)]);
-        }
-        return list;
-    }
-
-    public static class SimpleStringRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleStringRecyclerViewAdapter.ViewHolder> {
+    public static class SimpleStringRecyclerViewAdapter extends RecyclerView.Adapter<SimpleStringRecyclerViewAdapter.ViewHolder> {
 
         private final TypedValue mTypedValue = new TypedValue();
         private int mBackground;
@@ -166,8 +140,8 @@ public class ActivityMainButtonsFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Context context = v.getContext();
-                    Intent intent = new Intent(context, ButtonDetailActivity.class);
-                    intent.putExtra(ButtonDetailActivity.BUTTON_ID, position);
+                    Intent intent = new Intent(context, PagerActivity2.class);
+                    intent.putExtra(PagerActivity2.MENU_ID, position);
 
                     context.startActivity(intent);
                 }
@@ -184,5 +158,6 @@ public class ActivityMainButtonsFragment extends Fragment {
             return mValues.size();
         }
     }
+
 
 }

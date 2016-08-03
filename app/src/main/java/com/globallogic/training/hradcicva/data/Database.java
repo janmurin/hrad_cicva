@@ -3,7 +3,7 @@ package com.globallogic.training.hradcicva.data;
 import android.content.res.Resources;
 
 import com.globallogic.training.hradcicva.R;
-import com.globallogic.training.hradcicva.gui.hrad.Main2Activity;
+import com.globallogic.training.hradcicva.gui.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -163,7 +163,7 @@ public class Database {
 
         buttonNames = new String[topics.size()];
         tabNames = new ArrayList<>();
-        Resources resources = Main2Activity.CONTEXT.getResources();
+        Resources resources = MainActivity.CONTEXT.getResources();
         for (int i = 0; i < topics.size(); i++) {
             Topic topic = topics.get(i);
             buttonNames[i] = topic.name;
@@ -172,7 +172,7 @@ public class Database {
                 Article a = topic.articles.get(j);
                 tabs.add(a.tabName);
                 for (int k = 0; k < a.images.size(); k++) {
-                    a.imageIDs.add(resources.getIdentifier(a.images.get(k), "drawable", Main2Activity.CONTEXT.getPackageName()));
+                    a.imageIDs.add(resources.getIdentifier(a.images.get(k), "drawable", MainActivity.CONTEXT.getPackageName()));
                 }
             }
             tabNames.add(tabs);
@@ -209,11 +209,11 @@ public class Database {
     public static int getButtonDrawable(int position) {
         switch (position) {
             case 0:
-                return R.drawable.historia_1;
+                return R.drawable.majitelia_1;
             case 1:
                 return R.drawable.bergfrit_1;
             case 2:
-                return R.drawable.obnova_1;
+                return R.drawable.akcie_1;
             case 3:
                 return R.drawable.pfhc;
             default:

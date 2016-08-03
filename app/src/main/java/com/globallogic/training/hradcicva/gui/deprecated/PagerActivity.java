@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.globallogic.training.hradcicva.gui.hrad;
+package com.globallogic.training.hradcicva.gui.deprecated;
 
 import android.content.Context;
 import android.os.Build;
@@ -26,35 +26,51 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
 import com.globallogic.training.hradcicva.R;
+import com.globallogic.training.hradcicva.data.Database;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ButtonDetailActivity extends AppCompatActivity {
+public class PagerActivity extends AppCompatActivity {
 
-    public static final String BUTTON_ID = "buttonID";
+    public static final String MENU_ID = "buttonID";
+    public static final String TAG = PagerActivity.class.getSimpleName();
     public static Context CONTEXT;
+    private int menuID;
+    private String topicName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_button_detail);
-        CONTEXT=this;
+        setContentView(R.layout.activity_pager);
+        CONTEXT = this;
 
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        toolbar.setTitle("ButtonDetailActivity");
+//        toolbar.setTitle("PagerActivity");
 //        setSupportActionBar(toolbar);
 
 
 //        final ActionBar ab = getSupportActionBar();
 //        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
 //        ab.setDisplayHomeAsUpEnabled(true);
-
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            menuID = extras.getInt(MENU_ID);
+            Log.d(TAG, " onCreate with MENU_ID: " + menuID);
+            topicName = Database.getTopicName(menuID);
+//            getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .replace(R.id.activity_pager_content_frame, PagerFragment.newInstance(menuID), PagerFragment.TAG)
+//                    .commit();
+        } else {
+            throw new RuntimeException("instantiated fragment without arguments.");
+        }
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         if (viewPager != null) {
@@ -63,9 +79,9 @@ public class ButtonDetailActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
-
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -124,9 +140,10 @@ public class ButtonDetailActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(ButtonDetailFragment.getInstance("prva"), "Category 1");
-        adapter.addFragment(ButtonDetailFragment.getInstance("druha"), "Category 2");
-//        adapter.addFragment(new ButtonsListFragment(), "Category 3");
+        String[] tabs = Database.getTabs(menuID);
+        for (int i = 0; i < tabs.length; i++) {
+            adapter.addFragment(PagerActivityFragment.getInstance(menuID, i), tabs[i]);
+        }
         viewPager.setAdapter(adapter);
     }
 

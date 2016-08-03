@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.globallogic.training.hradcicva.util;
+package com.globallogic.training.hradcicva.gui.detail;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.v4.BuildConfig;
+import android.support.design.BuildConfig;
 import android.util.Log;
-
 
 /**
  * A BitmapDrawable that keeps track of whether it is being displayed or cached.

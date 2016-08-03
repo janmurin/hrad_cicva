@@ -1,5 +1,6 @@
-package com.globallogic.training.hradcicva.gui;
+package com.globallogic.training.hradcicva.gui.detail;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -9,15 +10,15 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.globallogic.training.hradcicva.R;
-import com.globallogic.training.hradcicva.data.Database;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImageDetailActivity2 extends FragmentActivity {
+public class ImageDetailActivity extends FragmentActivity {
 
     public static final String IMAGE_RES_IDS = "extra_image";
-    private static final String TAG = ImageDetailActivity2.class.getSimpleName();
+    private static final String TAG = ImageDetailActivity.class.getSimpleName();
+    public static Context CONTEXT;
 
     private ImagePagerAdapter mAdapter;
     private ViewPager mPager;
@@ -27,6 +28,7 @@ public class ImageDetailActivity2 extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_detail_pager2); // Contains just a ViewPager
+        CONTEXT = this;
 
         imageResIDs = getIntent().getIntegerArrayListExtra(IMAGE_RES_IDS);
         if (imageResIDs == null) {
@@ -44,7 +46,7 @@ public class ImageDetailActivity2 extends FragmentActivity {
 
         public ImagePagerAdapter(FragmentManager fm, List<Integer> imageResIDs) {
             super(fm);
-            this.imageResIDs=imageResIDs;
+            this.imageResIDs = imageResIDs;
         }
 
         @Override
@@ -55,7 +57,7 @@ public class ImageDetailActivity2 extends FragmentActivity {
         @Override
         public Fragment getItem(int position) {
             Log.d("ImagePagerAdapter", "getItem " + position);
-            return ImageDetailFragment2.newInstance(imageResIDs.get(position));
+            return ImageDetailFragment.newInstance(imageResIDs.get(position));
         }
     }
 }

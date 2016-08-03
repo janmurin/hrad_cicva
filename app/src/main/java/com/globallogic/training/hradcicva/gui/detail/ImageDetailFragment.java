@@ -1,6 +1,5 @@
-package com.globallogic.training.hradcicva.gui;
+package com.globallogic.training.hradcicva.gui.detail;
 
-import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,23 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.globallogic.training.hradcicva.R;
-import com.globallogic.training.hradcicva.data.Database;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
 /**
  * Created by jan.murin on 29-Jul-16.
  */
-public class ImageDetailFragment2 extends Fragment {
+public class ImageDetailFragment extends Fragment {
 
     private static final String IMAGE_RES_ID = "pos";
-    public static final String TAG = ImageDetailFragment2.class.getSimpleName();
+    public static final String TAG = ImageDetailFragment.class.getSimpleName();
     private ImageView mImageView;
     private int imageResID;
 
-    static ImageDetailFragment2 newInstance(int imageResID) {
-        final ImageDetailFragment2 f = new ImageDetailFragment2();
+    static ImageDetailFragment newInstance(int imageResID) {
+        final ImageDetailFragment f = new ImageDetailFragment();
         final Bundle args = new Bundle();
         args.putInt(IMAGE_RES_ID, imageResID);
         f.setArguments(args);
@@ -35,7 +32,7 @@ public class ImageDetailFragment2 extends Fragment {
     }
 
     // Empty constructor, required as per Fragment docs
-    public ImageDetailFragment2() {
+    public ImageDetailFragment() {
     }
 
     @Override
@@ -57,19 +54,18 @@ public class ImageDetailFragment2 extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Display display = getActivity().getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        Log.d(TAG, " onActivityCreated, image set from " + imageResID + "display size: " + size.x + "x" + size.y);
-
-        int resizeSize = (int) Math.sqrt(size.x * size.y);
-        Picasso.with(getContext())
+        Log.d(TAG, " onActivityCreated, image set from " + imageResID );
+        Glide.with(ImageDetailActivity.CONTEXT)
                 .load(imageResID)
-                .transform(new BitmapTransform(size.x, size.y))
-                .skipMemoryCache()
-                .resize(resizeSize, resizeSize)
-                .centerInside()
                 .into(mImageView);
+//        int resizeSize = (int) Math.sqrt(size.x * size.y);
+//        Picasso.with(getContext())
+//                .load(imageResID)
+//                .transform(new BitmapTransform(size.x, size.y))
+//                .skipMemoryCache()
+//                .resize(resizeSize, resizeSize)
+//                .centerInside()
+//                .into(mImageView);
     }
 
 
