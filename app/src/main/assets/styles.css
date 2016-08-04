@@ -1,0 +1,9 @@
+@font-face {
+    font-family: myFirstFont;
+    src: url('fonts/UncialAntiqua-Regular.ttf');
+}
+
+h1,h2 {
+    font-family: myFirstFont;
+    color:chocolate;
+}

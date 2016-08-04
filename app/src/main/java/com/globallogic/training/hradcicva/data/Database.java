@@ -157,7 +157,7 @@ public class Database {
         Article a32 = new Article();
         a32.title = "Sponzori";
         a32.tabName = "Sponzori";
-        a32.assetUrl = "sponzori/sponzori.html";
+        a32.assetUrl = "sponzori.html";
         m3.articles.add(a32);
         topics.add(m3);
 

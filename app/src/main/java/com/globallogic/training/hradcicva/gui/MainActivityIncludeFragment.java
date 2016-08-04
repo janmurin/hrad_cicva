@@ -18,6 +18,7 @@ package com.globallogic.training.hradcicva.gui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -32,6 +33,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.elmargomez.typer.Font;
+import com.elmargomez.typer.Typer;
 import com.globallogic.training.hradcicva.R;
 import com.globallogic.training.hradcicva.data.Database;
 import com.globallogic.training.hradcicva.gui.detail.ImageDetailActivity;
@@ -59,7 +62,13 @@ public class MainActivityIncludeFragment extends Fragment {
 
 
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
-        collapsingToolbar.setTitle("Hrad Čičva");
+        collapsingToolbar.setTitle(getString(R.string.toolbar_title));
+//        Typeface font = Typer.set(getActivity()).getFont(Font.ROBOTO_CONDENSED_LIGHT_ITALIC);
+//        collapsingToolbar.setExpandedTitleTypeface(font);
+//        final Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UncialAntiqua-Regular.ttf");
+//        final Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Hilds___.ttf");
+//        collapsingToolbar.setCollapsedTitleTypeface(tf);
+//        collapsingToolbar.setExpandedTitleTypeface(tf);
 
         final ImageView imageView = (ImageView) view.findViewById(R.id.backdrop);
         Glide.with(this)

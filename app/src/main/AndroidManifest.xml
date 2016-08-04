@@ -30,13 +30,13 @@
         <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
         <!-- <activity android:name=".gui.deprecated.detail.ImageDetailActivity"></activity> -->
         <!-- <activity android:name=".deprecated.ImageDetailActivity"></activity> -->
-        <activity
-            android:name=".gui.deprecated.PagerActivity"
-            android:label="title button detail"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <!--<activity-->
+            <!--android:name=".gui.deprecated.PagerActivity"-->
+            <!--android:label="title button detail"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".gui.MainActivity"
-            android:label="Main2Activity"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,7 +51,7 @@
         <activity
             android:name=".gui.detail.ImageDetailActivity"
             android:label="title button detail"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
     </application>
 
 </manifest>
