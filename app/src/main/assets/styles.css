@@ -2,8 +2,22 @@
     font-family: myFirstFont;
     src: url('fonts/UncialAntiqua-Regular.ttf');
 }
-
+@font-face {
+    font-family: Constantia;
+    src: url('fonts/Constantia.ttf');
+}
 h1,h2 {
     font-family: myFirstFont;
     color:chocolate;
+}
+.article_image{
+    max-width: 35%;
+    height: auto;
+    margin: 10px;
+}
+body{
+     font-family: Constantia;
+ }
+li{
+    font-style: italic;
 }

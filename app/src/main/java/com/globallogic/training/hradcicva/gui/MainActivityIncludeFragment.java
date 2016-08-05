@@ -44,6 +44,8 @@ import java.util.List;
 
 public class MainActivityIncludeFragment extends Fragment {
 
+    static Typeface tf;
+
     public static MainActivityIncludeFragment getInstance(String name) {
         MainActivityIncludeFragment inst = new MainActivityIncludeFragment();
         return inst;
@@ -66,9 +68,9 @@ public class MainActivityIncludeFragment extends Fragment {
 //        Typeface font = Typer.set(getActivity()).getFont(Font.ROBOTO_CONDENSED_LIGHT_ITALIC);
 //        collapsingToolbar.setExpandedTitleTypeface(font);
 //        final Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UncialAntiqua-Regular.ttf");
-//        final Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Hilds___.ttf");
-//        collapsingToolbar.setCollapsedTitleTypeface(tf);
-//        collapsingToolbar.setExpandedTitleTypeface(tf);
+        tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Constantia.ttf");
+        collapsingToolbar.setCollapsedTitleTypeface(tf);
+        collapsingToolbar.setExpandedTitleTypeface(tf);
 
         final ImageView imageView = (ImageView) view.findViewById(R.id.backdrop);
         Glide.with(this)
@@ -144,6 +146,7 @@ public class MainActivityIncludeFragment extends Fragment {
         public void onBindViewHolder(final ViewHolder holder, final int position) {
             holder.mBoundString = mValues.get(position);
             holder.mTextView.setText(mValues.get(position));
+            holder.mTextView.setTypeface(tf);
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override

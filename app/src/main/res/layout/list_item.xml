@@ -44,6 +44,7 @@
             android:textSize="18sp"
             android:layout_marginLeft="15dp"
             android:layout_gravity="center_vertical"
+            android:fontFamily=""
             android:textAppearance="?attr/textAppearanceListItem" />
     </LinearLayout>
 
