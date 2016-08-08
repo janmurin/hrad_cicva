@@ -44,9 +44,9 @@ public class PagerActivityFragment2 extends Fragment {
     private int topicID;
     private int posID;
     private Article article;
-    private TestCallback callback;
+   // private TestCallback callback;
 
-    public static PagerActivityFragment2 getInstance(int menuID, int pos, GestureDetectorCompat mDetector) {
+    public static PagerActivityFragment2 getInstance(int menuID, int pos) {
         PagerActivityFragment2 inst = new PagerActivityFragment2();
         Bundle args = new Bundle();
         args.putInt(TOPIC_ID, menuID);
@@ -125,13 +125,13 @@ public class PagerActivityFragment2 extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        callback = (TestCallback) activity;
+       // callback = (TestCallback) activity;
     }
 
-    public interface TestCallback {
-        void onScrollEvent(int l, int t);
-        void onWebViewTouchEvent(MotionEvent event);
-    }
+//    public interface TestCallback {
+//        void onScrollEvent(int l, int t);
+//        void onWebViewTouchEvent(MotionEvent event);
+//    }
 
 
 

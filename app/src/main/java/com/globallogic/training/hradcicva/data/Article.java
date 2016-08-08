@@ -10,6 +10,6 @@ public class Article{
     public String tabName;
     public String assetUrl;
     public String title;
-    public List<String> images=new ArrayList<>();
-    public List<Integer> imageIDs=new ArrayList<>();
+    //public List<String> images=new ArrayList<>();
+    public List<Image> images=new ArrayList<>();
 }

@@ -2,6 +2,7 @@ package com.globallogic.training.hradcicva.gui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.globallogic.training.hradcicva.R;
@@ -33,7 +35,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PagerActivity2 extends AppCompatActivity implements PagerActivityFragment2.TestCallback {
+public class PagerActivity2 extends AppCompatActivity {
 
     public static final String MENU_ID = "buttonID";
     public static final String TAG = PagerActivity2.class.getSimpleName();
@@ -41,7 +43,6 @@ public class PagerActivity2 extends AppCompatActivity implements PagerActivityFr
     private int menuID;
     private String topicName;
     private ImageView imageView;
-    private GestureDetectorCompat mDetector;
     private CollapsingToolbarLayout collapsingToolbar;
     private int articlePos;
 
@@ -49,6 +50,13 @@ public class PagerActivity2 extends AppCompatActivity implements PagerActivityFr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pager2);
+
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        boolean showHint = sharedPref.getBoolean(getString(R.string.showHint), true);
+        if (showHint) {
+            Toast.makeText(this, "klikni na obrazok", Toast.LENGTH_SHORT).show();
+        }
+
         CONTEXT = this;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -66,14 +74,14 @@ public class PagerActivity2 extends AppCompatActivity implements PagerActivityFr
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             menuID = extras.getInt(MENU_ID);
-            Log.d(TAG, " onCreate with MENU_ID: " + menuID);
+            // Log.d(TAG, " onCreate with MENU_ID: " + menuID);
             topicName = Database.getTopicName(menuID);
         } else {
             throw new RuntimeException("instantiated fragment without arguments.");
         }
 
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        Log.i(TAG, "CollapsingToolbarLayout=" + collapsingToolbar + " title=[" + Database.getTopicName(menuID) + "]");
+        //  Log.i(TAG, "CollapsingToolbarLayout=" + collapsingToolbar + " title=[" + Database.getTopicName(menuID) + "]");
         collapsingToolbar.setTitle(Database.getTopicName(menuID));
         imageView = (ImageView) findViewById(R.id.backdrop);
 
@@ -91,11 +99,11 @@ public class PagerActivity2 extends AppCompatActivity implements PagerActivityFr
 
             @Override
             public void onPageSelected(int position) {
-                Log.d(TAG, "onPageSelected");
+                // Log.d(TAG, "onPageSelected");
                 Article article = Database.getArticle(menuID, position);
-                if (!article.imageIDs.isEmpty()) {
+                if (!article.images.isEmpty()) {
                     Glide.with(PagerActivity2.CONTEXT)
-                            .load(article.imageIDs.get((int) (Math.random() * article.imageIDs.size())))
+                            .load(article.images.get((int) (Math.random() * article.images.size())).resID)
                             .centerCrop()
                             .into(imageView);
                     articlePos = position;
@@ -105,7 +113,7 @@ public class PagerActivity2 extends AppCompatActivity implements PagerActivityFr
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                Log.d(TAG, "pageScrolled");
+                //  Log.d(TAG, "pageScrolled");
 
 
             }
@@ -115,9 +123,9 @@ public class PagerActivity2 extends AppCompatActivity implements PagerActivityFr
         tabLayout.setupWithViewPager(viewPager);
 
         Article article = Database.getArticle(menuID, 0);
-        if (!article.imageIDs.isEmpty()) {
+        if (!article.images.isEmpty()) {
             Glide.with(PagerActivity2.CONTEXT)
-                    .load(article.imageIDs.get((int) (Math.random() * article.imageIDs.size())))
+                    .load(article.images.get((int) (Math.random() * article.images.size())).resID)
                     .centerCrop()
                     .into(imageView);
             articlePos = 0;
@@ -134,9 +142,9 @@ public class PagerActivity2 extends AppCompatActivity implements PagerActivityFr
     }
 
     public void onImageClicked(View v) {
-        System.out.println("image clicked");
+        // System.out.println("image clicked");
         final Intent i = new Intent(this, ImageDetailActivity.class);
-        i.putExtra(ImageDetailActivity.IMAGE_RES_IDS, (Serializable) Database.getArticle(menuID, articlePos).imageIDs);
+        i.putExtra(ImageDetailActivity.IMAGES, (Serializable) Database.getArticle(menuID, articlePos).images);
         startActivity(i);
     }
 
@@ -149,73 +157,73 @@ public class PagerActivity2 extends AppCompatActivity implements PagerActivityFr
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        switch (AppCompatDelegate.getDefaultNightMode()) {
-            case AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM:
-                menu.findItem(R.id.menu_night_mode_system).setChecked(true);
-                break;
-            case AppCompatDelegate.MODE_NIGHT_AUTO:
-                menu.findItem(R.id.menu_night_mode_auto).setChecked(true);
-                break;
-            case AppCompatDelegate.MODE_NIGHT_YES:
-                menu.findItem(R.id.menu_night_mode_night).setChecked(true);
-                break;
-            case AppCompatDelegate.MODE_NIGHT_NO:
-                menu.findItem(R.id.menu_night_mode_day).setChecked(true);
-                break;
-        }
+//        switch (AppCompatDelegate.getDefaultNightMode()) {
+//            case AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM:
+//                menu.findItem(R.id.menu_night_mode_system).setChecked(true);
+//                break;
+//            case AppCompatDelegate.MODE_NIGHT_AUTO:
+//                menu.findItem(R.id.menu_night_mode_auto).setChecked(true);
+//                break;
+//            case AppCompatDelegate.MODE_NIGHT_YES:
+//                menu.findItem(R.id.menu_night_mode_night).setChecked(true);
+//                break;
+//            case AppCompatDelegate.MODE_NIGHT_NO:
+//                menu.findItem(R.id.menu_night_mode_day).setChecked(true);
+//                break;
+//        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            case R.id.menu_night_mode_system:
-                setNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-                break;
-            case R.id.menu_night_mode_day:
-                setNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                break;
-            case R.id.menu_night_mode_night:
-                setNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                break;
-            case R.id.menu_night_mode_auto:
-                setNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-                break;
-        }
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                onBackPressed();
+//                return true;
+//            case R.id.menu_night_mode_system:
+//                setNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+//                break;
+//            case R.id.menu_night_mode_day:
+//                setNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//                break;
+//            case R.id.menu_night_mode_night:
+//                setNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//                break;
+//            case R.id.menu_night_mode_auto:
+//                setNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+//                break;
+//        }
         return super.onOptionsItemSelected(item);
     }
 
-    private void setNightMode(@AppCompatDelegate.NightMode int nightMode) {
-        AppCompatDelegate.setDefaultNightMode(nightMode);
-
-        if (Build.VERSION.SDK_INT >= 11) {
-            recreate();
-        }
-    }
+//    private void setNightMode(@AppCompatDelegate.NightMode int nightMode) {
+//        AppCompatDelegate.setDefaultNightMode(nightMode);
+//
+//        if (Build.VERSION.SDK_INT >= 11) {
+//            recreate();
+//        }
+//    }
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         String[] tabs = Database.getTabs(menuID);
         for (int i = 0; i < tabs.length; i++) {
-            adapter.addFragment(PagerActivityFragment2.getInstance(menuID, i, mDetector), tabs[i]);
+            adapter.addFragment(PagerActivityFragment2.getInstance(menuID, i), tabs[i]);
         }
         viewPager.setAdapter(adapter);
     }
 
-    @Override
-    public void onScrollEvent(int l, int t) {
-        Log.i(TAG, "onscrollevent: l=" + l + " t=" + t);
-
-    }
-
-    @Override
-    public void onWebViewTouchEvent(MotionEvent event) {
-        Log.i(TAG, "onWebViewTouchEvent: l=" + event);
-        collapsingToolbar.onTouchEvent(event);
-    }
+//    @Override
+//    public void onScrollEvent(int l, int t) {
+//       // Log.i(TAG, "onscrollevent: l=" + l + " t=" + t);
+//
+//    }
+//
+//    @Override
+//    public void onWebViewTouchEvent(MotionEvent event) {
+//        Log.i(TAG, "onWebViewTouchEvent: l=" + event);
+//        collapsingToolbar.onTouchEvent(event);
+//    }
 
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragments = new ArrayList<>();
