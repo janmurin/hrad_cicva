@@ -52,9 +52,12 @@ public class PagerActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_pager2);
 
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
-        boolean showHint = sharedPref.getBoolean(getString(R.string.showHint), true);
-        if (showHint) {
-            Toast.makeText(this, "klikni na obrazok", Toast.LENGTH_SHORT).show();
+        int hintCount = sharedPref.getInt(getString(R.string.hintToastCount), 0);
+        if (hintCount < 3) {
+            Toast.makeText(this, "Kliknutím na obrázok zobrazíte galériu.", Toast.LENGTH_LONG).show();
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt(getString(R.string.hintToastCount), hintCount + 1);
+            editor.commit();
         }
 
         CONTEXT = this;
@@ -63,14 +66,7 @@ public class PagerActivity2 extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.BLACK);
         }
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setTitle("PagerActivity");
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        final ActionBar ab = getSupportActionBar();
-//        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-//        ab.setDisplayHomeAsUpEnabled(true);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             menuID = extras.getInt(MENU_ID);
@@ -131,14 +127,6 @@ public class PagerActivity2 extends AppCompatActivity {
             articlePos = 0;
         }
 
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                final Intent i = new Intent(this, ImageDetailActivity.class);
-//                i.putExtra(ImageDetailActivity.IMAGE_RES_IDS,  Database.getHeaderImageResIDsList());
-//                startActivity(i);
-//            }
-//        });
     }
 
     public void onImageClicked(View v) {
@@ -157,52 +145,14 @@ public class PagerActivity2 extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-//        switch (AppCompatDelegate.getDefaultNightMode()) {
-//            case AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM:
-//                menu.findItem(R.id.menu_night_mode_system).setChecked(true);
-//                break;
-//            case AppCompatDelegate.MODE_NIGHT_AUTO:
-//                menu.findItem(R.id.menu_night_mode_auto).setChecked(true);
-//                break;
-//            case AppCompatDelegate.MODE_NIGHT_YES:
-//                menu.findItem(R.id.menu_night_mode_night).setChecked(true);
-//                break;
-//            case AppCompatDelegate.MODE_NIGHT_NO:
-//                menu.findItem(R.id.menu_night_mode_day).setChecked(true);
-//                break;
-//        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                onBackPressed();
-//                return true;
-//            case R.id.menu_night_mode_system:
-//                setNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-//                break;
-//            case R.id.menu_night_mode_day:
-//                setNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//                break;
-//            case R.id.menu_night_mode_night:
-//                setNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//                break;
-//            case R.id.menu_night_mode_auto:
-//                setNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-//                break;
-//        }
         return super.onOptionsItemSelected(item);
     }
 
-//    private void setNightMode(@AppCompatDelegate.NightMode int nightMode) {
-//        AppCompatDelegate.setDefaultNightMode(nightMode);
-//
-//        if (Build.VERSION.SDK_INT >= 11) {
-//            recreate();
-//        }
-//    }
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
@@ -212,18 +162,6 @@ public class PagerActivity2 extends AppCompatActivity {
         }
         viewPager.setAdapter(adapter);
     }
-
-//    @Override
-//    public void onScrollEvent(int l, int t) {
-//       // Log.i(TAG, "onscrollevent: l=" + l + " t=" + t);
-//
-//    }
-//
-//    @Override
-//    public void onWebViewTouchEvent(MotionEvent event) {
-//        Log.i(TAG, "onWebViewTouchEvent: l=" + event);
-//        collapsingToolbar.onTouchEvent(event);
-//    }
 
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragments = new ArrayList<>();

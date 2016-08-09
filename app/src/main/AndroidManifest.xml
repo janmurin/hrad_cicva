@@ -30,7 +30,10 @@
         <activity
             android:name=".gui.detail.ImageDetailActivity"
             android:label="title button detail"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            />
+            <!--android:theme="@style/Theme.Transparent" -->
+
     </application>
 
 </manifest>

@@ -65,9 +65,6 @@ public class MainActivityIncludeFragment extends Fragment {
 
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(getString(R.string.toolbar_title));
-//        Typeface font = Typer.set(getActivity()).getFont(Font.ROBOTO_CONDENSED_LIGHT_ITALIC);
-//        collapsingToolbar.setExpandedTitleTypeface(font);
-//        final Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/UncialAntiqua-Regular.ttf");
         tf = Typeface.createFromAsset(getActivity().getAssets(), "fonts/Constantia.ttf");
         collapsingToolbar.setCollapsedTitleTypeface(tf);
         collapsingToolbar.setExpandedTitleTypeface(tf);

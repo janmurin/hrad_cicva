@@ -67,19 +67,12 @@ public class PagerActivityFragment2 extends Fragment {
         } else {
             throw new RuntimeException("Pager item fragment without arguments!!!");
         }
-
-
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_pager_fragment_webview, container, false);
-        //final Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
 
         return view;
     }
@@ -93,46 +86,10 @@ public class PagerActivityFragment2 extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-//        CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) getActivity().findViewById(R.id.collapsing_toolbar);
-//        Log.i(TAG, "CollapsingToolbarLayout=" + collapsingToolbar + " article title=[" + article.title + "]");
-//        collapsingToolbar.setTitle(article.title);
-//        final ImageView imageView = (ImageView) getActivity().findViewById(R.id.backdrop);
-//
-//
-//        if (!article.imageIDs.isEmpty()) {
-//            Glide.with(this)
-//                    .load(article.imageIDs.get((int) (Math.random() * article.imageIDs.size())))
-//                    .centerCrop()
-//                    .into(imageView);
-//        }
 
         WebView webview = (WebView) getView().findViewById(R.id.contentWebView);
         webview.getSettings().setJavaScriptEnabled(true);
         webview.loadUrl("file:///android_asset/" + article.assetUrl);
-//        webview.setOnScrollChangedCallback(new ObservableWebView.OnScrollChangedCallback(){
-//            public void onScroll(int l, int t){
-//                //Do stuff
-//                callback.onScrollEvent(l,t);
-//            }
-//
-//            @Override
-//            public void onTouchEvent(MotionEvent event) {
-//                callback.onWebViewTouchEvent(event);
-//            }
-//        });
     }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-       // callback = (TestCallback) activity;
-    }
-
-//    public interface TestCallback {
-//        void onScrollEvent(int l, int t);
-//        void onWebViewTouchEvent(MotionEvent event);
-//    }
-
-
 
 }

@@ -1,13 +1,23 @@
 package com.globallogic.training.hradcicva.gui.detail;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.globallogic.training.hradcicva.R;
@@ -18,19 +28,22 @@ import java.util.ArrayList;
 public class ImageDetailActivity extends FragmentActivity {
 
     public static final String IMAGES = "extra_image";
-   // private static final String TAG = ImageDetailActivity.class.getSimpleName();
-   // public static Context CONTEXT;
+    // private static final String TAG = ImageDetailActivity.class.getSimpleName();
+    // public static Context CONTEXT;
 
     private ImagePagerAdapter mAdapter;
     private ViewPager mPager;
     private ArrayList<Image> images;
     private TextView imageTextView;
+    private View[] indicatorViews;
+    private LinearLayout linLayout;
+    private int selected;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.image_detail_pager2); // Contains just a ViewPager
-       // CONTEXT = this;
+        // CONTEXT = this;
         imageTextView = (TextView) findViewById(R.id.imageTextView);
 
         images = (ArrayList<Image>) getIntent().getSerializableExtra(IMAGES);
@@ -50,6 +63,7 @@ public class ImageDetailActivity extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 imageTextView.setText(images.get(position).title);
+                resetIndicators(position);
             }
 
             @Override
@@ -59,7 +73,40 @@ public class ImageDetailActivity extends FragmentActivity {
         });
 
         imageTextView.setText(images.get(0).title);
+
+        LayoutInflater layoutInflater = getLayoutInflater();
+        linLayout = (LinearLayout) findViewById(R.id.imageIndicatorLinearLayout);
+
+        indicatorViews = new View[images.size()];
+        for (int i = 0; i < images.size(); i++) {
+            View view = layoutInflater.inflate(R.layout.indicator_item, linLayout, false);
+            indicatorViews[i] = view.findViewById(R.id.indicatorItemView);
+            linLayout.addView(indicatorViews[i]);
+        }
+        indicatorViews[0].setBackgroundColor(Color.WHITE);
+        selected = 0;
+
     }
+
+    public void resetIndicators(int position) {
+        System.out.println("resetting indicators");
+//        for (int i = 0; i < indicatorViews.length; i++) {
+//            if (i != position) {
+//                indicatorViews[i].setBackgroundResource(R.color.colorButtonSpace);
+//                System.out.println("indicator " + i + " color set to: " + R.color.colorButtonSpace);
+//                indicatorViews[i].invalidate();
+//            } else {
+//                indicatorViews[i].setBackgroundColor(Color.WHITE);
+//                System.out.println("indicator " + i + " color set to: " + Color.WHITE);
+//            }
+//        }
+//        linLayout.invalidate();
+        indicatorViews[selected].setBackgroundResource(R.color.colorButtonSpace);
+        indicatorViews[selected].invalidate();
+        indicatorViews[position].setBackgroundColor(Color.WHITE);
+        selected = position;
+    }
+
 
     public static class ImagePagerAdapter extends FragmentStatePagerAdapter {
         private final ArrayList<Image> images;
@@ -79,4 +126,6 @@ public class ImageDetailActivity extends FragmentActivity {
             return ImageDetailFragment.newInstance(images.get(position));
         }
     }
+
+
 }
