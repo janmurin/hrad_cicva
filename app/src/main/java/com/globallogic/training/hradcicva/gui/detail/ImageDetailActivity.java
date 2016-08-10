@@ -1,7 +1,9 @@
 package com.globallogic.training.hradcicva.gui.detail;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -88,22 +90,16 @@ public class ImageDetailActivity extends FragmentActivity {
 
     }
 
+
     public void resetIndicators(int position) {
-        System.out.println("resetting indicators");
-//        for (int i = 0; i < indicatorViews.length; i++) {
-//            if (i != position) {
-//                indicatorViews[i].setBackgroundResource(R.color.colorButtonSpace);
-//                System.out.println("indicator " + i + " color set to: " + R.color.colorButtonSpace);
-//                indicatorViews[i].invalidate();
-//            } else {
-//                indicatorViews[i].setBackgroundColor(Color.WHITE);
-//                System.out.println("indicator " + i + " color set to: " + Color.WHITE);
-//            }
-//        }
-//        linLayout.invalidate();
-        indicatorViews[selected].setBackgroundResource(R.color.colorButtonSpace);
-        indicatorViews[selected].invalidate();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            indicatorViews[selected].setBackgroundColor(getResources().getColor(R.color.colorButtonSpace,getTheme()));
+        } else{
+            indicatorViews[selected].setBackgroundColor(getResources().getColor(R.color.colorButtonSpace));
+        }
+
         indicatorViews[position].setBackgroundColor(Color.WHITE);
+        indicatorViews[selected].invalidate();
         selected = position;
     }
 
