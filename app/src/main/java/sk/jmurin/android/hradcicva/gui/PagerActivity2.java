@@ -1,4 +1,4 @@
-package com.globallogic.training.hradcicva.gui;
+package sk.jmurin.android.hradcicva.gui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,14 +11,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -27,9 +23,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.globallogic.training.hradcicva.R;
-import com.globallogic.training.hradcicva.data.Article;
-import com.globallogic.training.hradcicva.data.Database;
-import com.globallogic.training.hradcicva.gui.detail.ImageDetailActivity;
+import sk.jmurin.android.hradcicva.data.Article;
+import sk.jmurin.android.hradcicva.data.Database;
+import sk.jmurin.android.hradcicva.gui.detail.ImageDetailActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;

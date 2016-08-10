@@ -1,10 +1,10 @@
-package com.globallogic.training.hradcicva.data;
+package sk.jmurin.android.hradcicva.data;
 
 import android.content.res.Resources;
 import android.widget.Toast;
 
 import com.globallogic.training.hradcicva.R;
-import com.globallogic.training.hradcicva.gui.MainActivity;
+import sk.jmurin.android.hradcicva.gui.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;

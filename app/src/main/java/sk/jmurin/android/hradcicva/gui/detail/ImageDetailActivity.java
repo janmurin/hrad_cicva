@@ -1,7 +1,5 @@
-package com.globallogic.training.hradcicva.gui.detail;
+package sk.jmurin.android.hradcicva.gui.detail;
 
-import android.annotation.TargetApi;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.Fragment;
@@ -10,20 +8,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.globallogic.training.hradcicva.R;
-import com.globallogic.training.hradcicva.data.Image;
+import sk.jmurin.android.hradcicva.data.Image;
 
 import java.util.ArrayList;
 

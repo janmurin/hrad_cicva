@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.globallogic.training.hradcicva.gui;
+package sk.jmurin.android.hradcicva.gui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -33,13 +33,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.elmargomez.typer.Font;
-import com.elmargomez.typer.Typer;
 import com.globallogic.training.hradcicva.R;
-import com.globallogic.training.hradcicva.data.Database;
-import com.globallogic.training.hradcicva.gui.detail.ImageDetailActivity;
+import sk.jmurin.android.hradcicva.data.Database;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class MainActivityIncludeFragment extends Fragment {

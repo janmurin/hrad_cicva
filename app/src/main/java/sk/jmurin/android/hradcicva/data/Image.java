@@ -1,4 +1,4 @@
-package com.globallogic.training.hradcicva.data;
+package sk.jmurin.android.hradcicva.data;
 
 import java.io.Serializable;
 

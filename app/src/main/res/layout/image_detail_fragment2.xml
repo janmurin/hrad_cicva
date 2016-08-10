@@ -4,7 +4,7 @@
     android:layout_height="fill_parent" >
 
 
-    <com.globallogic.training.hradcicva.gui.detail.RecyclingImageView
+    <sk.jmurin.android.hradcicva.gui.detail.RecyclingImageView
         android:id="@+id/imageView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

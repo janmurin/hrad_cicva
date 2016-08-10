@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".gui.MainActivity"
+            android:name="sk.jmurin.android.hradcicva.gui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -24,11 +24,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".gui.PagerActivity2"
+            android:name="sk.jmurin.android.hradcicva.gui.PagerActivity2"
             android:label="title button detail"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".gui.detail.ImageDetailActivity"
+            android:name="sk.jmurin.android.hradcicva.gui.detail.ImageDetailActivity"
             android:label="title button detail"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             />

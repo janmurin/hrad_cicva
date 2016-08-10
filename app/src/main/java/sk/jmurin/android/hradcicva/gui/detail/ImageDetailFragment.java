@@ -1,19 +1,15 @@
-package com.globallogic.training.hradcicva.gui.detail;
+package sk.jmurin.android.hradcicva.gui.detail;
 
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.globallogic.training.hradcicva.R;
-import com.globallogic.training.hradcicva.data.Image;
+import sk.jmurin.android.hradcicva.data.Image;
 
 /**
  * Created by jan.murin on 29-Jul-16.

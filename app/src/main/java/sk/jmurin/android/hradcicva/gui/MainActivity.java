@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package com.globallogic.training.hradcicva.gui;
+package sk.jmurin.android.hradcicva.gui;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,8 +29,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.globallogic.training.hradcicva.R;
-import com.globallogic.training.hradcicva.data.Database;
-import com.globallogic.training.hradcicva.gui.detail.ImageDetailActivity;
+import sk.jmurin.android.hradcicva.data.Database;
+import sk.jmurin.android.hradcicva.gui.detail.ImageDetailActivity;
 
 import java.io.Serializable;
 

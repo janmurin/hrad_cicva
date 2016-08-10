@@ -1,4 +1,4 @@
-package com.globallogic.training.hradcicva.gui;
+package sk.jmurin.android.hradcicva.gui;
 
 /**
  * Created by jan.murin on 03-Aug-16.
@@ -19,20 +19,17 @@ package com.globallogic.training.hradcicva.gui;
  * limitations under the License.
  */
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GestureDetectorCompat;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import com.globallogic.training.hradcicva.R;
-import com.globallogic.training.hradcicva.data.Article;
-import com.globallogic.training.hradcicva.data.Database;
+import sk.jmurin.android.hradcicva.data.Article;
+import sk.jmurin.android.hradcicva.data.Database;
 
 
 public class PagerActivityFragment2 extends Fragment {

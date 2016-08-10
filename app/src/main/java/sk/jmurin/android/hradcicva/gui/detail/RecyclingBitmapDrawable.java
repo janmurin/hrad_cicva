@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.globallogic.training.hradcicva.gui.detail;
+package sk.jmurin.android.hradcicva.gui.detail;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
